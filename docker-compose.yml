@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    ports:
+      - "80:80"
+    environment:
+      - DB_HOST=dpg-d1gk4s7gi27c73brav8g-a.oregon-postgres.render.com
+      - DB_PORT=5432
+      - DB_USERNAME=showtime_select_user
+      - DB_PASSWORD=kbJAnSvfJHodYK7oDCaqaR7OvwlnJQi1
+      - DB_DATABASE=showtime_select
+    volumes:
+      - ./:/var/www/html
+    restart: always
