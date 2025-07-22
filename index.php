@@ -30,7 +30,8 @@ $featuredMovies = pg_query($conn, $featuredMoviesQuery);
 
 // Check if the movie query failed
 if ($featuredMovies === false) {
-    die("Featured Movies Query failed: " . pg_last_error($conn) . "<br>SQL: " . htmlspecialchars($featuredMoviesQuery));
+    error_log("Featured Movies Query failed: " . pg_last_error($conn));
+    $featuredMovies = false; // Set to false to handle gracefully in the template
 }
 
 // Get total movies count
@@ -61,7 +62,8 @@ $theaters = pg_query($conn, $theatersQuery);
 
 // Check if the theater query failed
 if ($theaters === false) {
-    die("Theater Query failed: " . pg_last_error($conn) . "<br>SQL: " . htmlspecialchars($theatersQuery));
+    error_log("Theater Query failed: " . pg_last_error($conn));
+    $theaters = false; // Set to false to handle gracefully in the template
 }
 
 // Close PostgreSQL connection

@@ -83,7 +83,8 @@ if (isset($_GET['schedule_id']) && is_numeric($_GET['schedule_id'])) {
             $errorMessage = "Schedule not found.";
         }
     } else {
-        $errorMessage = "Error fetching schedule details: " . pg_last_error($conn);
+        error_log("Error fetching schedule details: " . pg_last_error($conn));
+        $errorMessage = "Error fetching schedule details. Please try again.";
     }
 
     // Fetch already booked seats for this schedule

@@ -20,7 +20,9 @@ $conn_string = "host={$host} port={$port} dbname={$database} user={$username} pa
 $conn = pg_connect($conn_string);
 
 if (!$conn) {
-    die("Connection failed: " . pg_last_error());
+    error_log("Connection failed: " . pg_last_error());
+    header("Location: ../admin/index.php?error=connection_failed");
+    exit();
 }
 
 // Get all locations for dropdown
@@ -28,7 +30,8 @@ if (!$conn) {
 $locationsQuery = "SELECT locationid, locationname FROM locations WHERE locationstatus = 'active' ORDER BY locationname";
 $locations = pg_query($conn, $locationsQuery);
 if (!$locations) {
-    die("Error fetching locations: " . pg_last_error($conn));
+    error_log("Error fetching locations: " . pg_last_error($conn));
+    $errorMessage = "Error loading locations. Please try again.";
 }
 
 // Process form submission

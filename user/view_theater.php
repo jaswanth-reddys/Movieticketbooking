@@ -70,7 +70,8 @@ if (isset($_GET['hall_panorama_img']) && !empty($_GET['hall_panorama_img'])) {
             $sourceType = 'error';
         }
     } else {
-        $errorMessage = "Database query error for theater details: " . pg_last_error($conn);
+        error_log("Database query error for theater details: " . pg_last_error($conn));
+        $errorMessage = "Database query error for theater details. Please try again.";
         $sourceType = 'error';
     }
 } else {

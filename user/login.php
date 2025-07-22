@@ -71,7 +71,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $error = "Invalid username or password.";
         }
     } else {
-        $error = "Database query failed: " . pg_last_error($conn);
+        error_log("Database query failed: " . pg_last_error($conn));
+        $error = "Login failed. Please try again.";
     }
 }
 

@@ -66,7 +66,8 @@ $movies = pg_query($conn, $moviesQuery);
 
 // Check if the movie query failed
 if ($movies === false) {
-    die("Movie Query failed: " . pg_last_error($conn) . "<br>SQL: " . htmlspecialchars($moviesQuery));
+    error_log("Movie Query failed: " . pg_last_error($conn));
+    $movies = false; // Set to false to handle gracefully in the template
 }
 
 // Query for "Our Theaters" section
@@ -85,7 +86,8 @@ $theaters = pg_query($conn, $theatersQuery);
 
 // Check if the theater query failed
 if ($theaters === false) {
-    die("Theater Query failed: " . pg_last_error($conn) . "<br>SQL: " . htmlspecialchars($theatersQuery));
+    error_log("Theater Query failed: " . pg_last_error($conn));
+    $theaters = false; // Set to false to handle gracefully in the template
 }
 
 // Get total movies count for stats

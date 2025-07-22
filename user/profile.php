@@ -71,7 +71,8 @@ if (!empty($userEmail)) {
             $errorMessage = "You have no past bookings yet.";
         }
     } else {
-        $errorMessage = "Error fetching bookings: " . pg_last_error($conn);
+        error_log("Error fetching bookings: " . pg_last_error($conn));
+        $errorMessage = "Error fetching bookings. Please try again.";
     }
 } else {
     $errorMessage = "User email not found in session. Please log in again.";
@@ -98,7 +99,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_profile'])) {
             $user = array_change_key_case($user, CASE_LOWER);
         }
     } else {
-        $message = '<div class="bg-red-600 text-white p-3 rounded-lg mb-4">Error updating profile: ' . pg_last_error($conn) . '</div>';
+        error_log("Error updating profile: " . pg_last_error($conn));
+        $message = '<div class="bg-red-600 text-white p-3 rounded-lg mb-4">Error updating profile. Please try again.</div>';
     }
 }
 
@@ -128,7 +130,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['change_password'])) {
             if ($updateResult) {
                 $message = '<div class="bg-green-600 text-white p-3 rounded-lg mb-4">Password changed successfully!</div>';
             } else {
-                $message = '<div class="bg-red-600 text-white p-3 rounded-lg mb-4">Error changing password: ' . pg_last_error($conn) . '</div>';
+                error_log("Error changing password: " . pg_last_error($conn));
+                $message = '<div class="bg-red-600 text-white p-3 rounded-lg mb-4">Error changing password. Please try again.</div>';
             }
         } else {
             $message = '<div class="bg-red-600 text-white p-3 rounded-lg mb-4">New passwords do not match!</div>';

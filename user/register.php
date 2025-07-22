@@ -38,7 +38,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $check_result = pg_query_params($conn, $check_query, array($new_username));
 
     if (!$check_result) {
-        $error = "Database query failed: " . pg_last_error($conn);
+        error_log("Database query failed: " . pg_last_error($conn));
+        $error = "Registration failed. Please try again.";
     } elseif (pg_num_rows($check_result) > 0) {
         $error = "Username/Email already exists. Please choose a different one.";
     } else {
@@ -53,7 +54,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("Location: login.php?registered=true"); // Redirect to login page
             exit();
         } else {
-            $error = "Error during registration: " . pg_last_error($conn);
+            error_log("Error during registration: " . pg_last_error($conn));
+            $error = "Registration failed. Please try again.";
         }
     }
 }

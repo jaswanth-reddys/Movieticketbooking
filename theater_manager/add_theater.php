@@ -20,7 +20,9 @@ $conn_string = "host={$host} port={$port} dbname={$database} user={$username} pa
 $conn = pg_connect($conn_string);
 
 if (!$conn) {
-    die("Connection failed: " . pg_last_error());
+    error_log("Connection failed: " . pg_last_error());
+    header("Location: ../admin/index.php?error=connection_failed");
+    exit();
 }
 
 // Process form submission

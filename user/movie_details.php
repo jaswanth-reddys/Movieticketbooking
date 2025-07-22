@@ -37,7 +37,8 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
             $errorMessage = "Movie not found.";
         }
     } else {
-        $errorMessage = "Error fetching movie details: " . pg_last_error($conn);
+        error_log("Error fetching movie details: " . pg_last_error($conn));
+        $errorMessage = "Error fetching movie details. Please try again.";
     }
 
     // Fetch movie schedules

@@ -32,7 +32,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_feedback'])) {
     if ($result) {
         $message = '<div class="bg-green-600 text-white p-3 rounded-lg mb-4">Your message has been sent successfully! We will get back to you soon.</div>';
     } else {
-        $message = '<div class="bg-red-600 text-white p-3 rounded-lg mb-4">Error sending message: ' . pg_last_error($conn) . '</div>';
+        error_log("Error sending message: " . pg_last_error($conn));
+        $message = '<div class="bg-red-600 text-white p-3 rounded-lg mb-4">Error sending message. Please try again.</div>';
     }
 }
 

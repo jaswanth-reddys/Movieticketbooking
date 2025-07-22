@@ -20,7 +20,9 @@ $conn_string = "host={$host} port={$port} dbname={$database} user={$username} pa
 $conn = pg_connect($conn_string);
 
 if (!$conn) {
-    die("Connection failed: " . pg_last_error());
+    error_log("Connection failed: " . pg_last_error());
+    header("Location: index.php?error=connection_failed");
+    exit();
 }
 
 // Get all locations for dropdown
@@ -28,7 +30,8 @@ if (!$conn) {
 $locationsQuery = "SELECT locationid, locationname FROM locations WHERE locationstatus = 'active' ORDER BY locationname";
 $locations = pg_query($conn, $locationsQuery);
 if (!$locations) {
-    die("Error fetching locations: " . pg_last_error($conn));
+    error_log("Error fetching locations: " . pg_last_error($conn));
+    $errorMessage = "Error loading locations. Please try again.";
 }
 
 // Process form submission
@@ -102,7 +105,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 header("Location: movies.php?success=1");
                 exit();
             } else {
-                $errorMessage = "Error: " . pg_last_error($conn);
+                error_log("Error adding movie: " . pg_last_error($conn));
+                $errorMessage = "Error adding movie. Please try again.";
                 // If DB insert fails, consider deleting the uploaded file to clean up
                 if (file_exists($targetFilePath)) {
                     unlink($targetFilePath); 

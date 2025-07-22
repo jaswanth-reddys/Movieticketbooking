@@ -46,7 +46,8 @@ if (isset($_GET['booking_id']) && is_numeric($_GET['booking_id'])) {
             $errorMessage = "Booking details not found.";
         }
     } else {
-        $errorMessage = "Error fetching booking details: " . pg_last_error($conn);
+        error_log("Error fetching booking details: " . pg_last_error($conn));
+        $errorMessage = "Error fetching booking details. Please try again.";
     }
 
     // Optionally, check if the booking belongs to the logged-in user for security
