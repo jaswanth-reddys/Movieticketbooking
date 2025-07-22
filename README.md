@@ -10,7 +10,7 @@ To access and use this project:
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/Vishnukranthreddy/Movieticketbooking.git
+   git clone https://github.com/jaswanth-reddys/Movieticketbooking.git
    cd Movieticketbooking
 
 
